@@ -1,13 +1,6 @@
-import cv2 as cv
-import tensorflow as tf
-import matplotlib as plt
-import IPython.display as display
 import numpy as np
 import os
 
-# filename = '../data/quickdraw_tutorial_dataset_v1.tar.gz'
-# dataset = tf.data.TFRecordDataset(filename)
-# print(type(dataset))
 NUM_CLASSES = 345
 NUM_EXAMPLES_PER_CLASS = 2
 VECTOR_LENGTH = 784
