@@ -24,7 +24,7 @@ def compile_data(num_classes, num_examples_per_class):
         filename = os.fsdecode(file)
         path = directory + "\\" + filename
         arr = np.load(path)
-        #print(filename)
+        print(filename)
         for i in range(num_examples_per_class):
             X[class_enum * num_examples_per_class + i] = np.reshape(arr[i] / 255, (28, 28))
             y[class_enum * num_examples_per_class + i] = class_enum

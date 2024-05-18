@@ -1,8 +1,6 @@
-import cv2 as cv
 from tensorflow import keras 
-from keras import models, layers, regularizers, optimizers, losses, metrics
+from keras import models, layers, regularizers
 import matplotlib as plt
-import IPython.display as display
 from data_compiler import compile_data
 
 NUM_CLASSES = 100
@@ -21,22 +19,26 @@ X_test, y_test = X_testing[test_split:], y_testing[test_split:]
 
 
 print("starting model")
-#model yields 0.8372 train accuracy, 0.7375 val accuracy
+#model yields 0.7263 train accuracy, 0.7546 val accuracy
 model = models.Sequential()
 model.add(layers.Conv2D(64, (3, 3), activation='relu', input_shape=(28, 28, 1)))
 model.add(layers.BatchNormalization())
 model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Dropout(0.2))
 
 model.add(layers.Conv2D(128, (3, 3), activation='relu'))
 model.add(layers.BatchNormalization())
 model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Dropout(0.2))
 
 model.add(layers.Conv2D(256, (3, 3), activation='relu'))
 model.add(layers.BatchNormalization())
 model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Dropout(0.2))
 
 model.add(layers.Flatten())
-model.add(layers.Dense(256, activation='relu', kernel_regularizer=regularizers.L1L2()))
+model.add(layers.Dense(512, activation='relu', kernel_regularizer=regularizers.L1L2()))
+model.add(layers.Dropout(0.2))
 
 model.add(layers.Dense(100, activation='softmax'))
 
