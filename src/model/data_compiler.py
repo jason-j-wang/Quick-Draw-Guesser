@@ -1,7 +1,6 @@
 import numpy as np
 import os
 from sklearn.utils import shuffle
-import matplotlib.pyplot as plt
 
 IMAGE_DIM = 28
 
@@ -28,7 +27,6 @@ def compile_data(num_classes, num_train_examples_per_class, num_testval_examples
         filename = os.fsdecode(file)
         path = directory + '\\' + filename
         arr = np.load(path)
-        print(filename)
 
         # training data
         for i in range(num_train_examples_per_class):
@@ -48,7 +46,6 @@ def compile_data(num_classes, num_train_examples_per_class, num_testval_examples
             X_test[class_enum * num_testval_examples_per_class + i] = np.reshape(arr[i + offset] / 255, (28, 28))
             y_test[class_enum * num_testval_examples_per_class + i] = class_enum
             
-
     y_train = y_train.astype(int)
     X_train, y_train = shuffle(X_train, y_train)
 
@@ -58,11 +55,3 @@ def compile_data(num_classes, num_train_examples_per_class, num_testval_examples
     y_test = y_test.astype(int)
     X_test, y_test = shuffle(X_test, y_test)
     return X_train, y_train, X_val, y_val, X_test, y_test, classes
-
-# X, y, classes = compile_data(345, 1)
-# ex = X[0]
-# label = y[0]
-# print(classes[label])
-
-# plt.imshow(ex, cmap=plt.cm.binary)
-# plt.show()

@@ -1,7 +1,6 @@
 import os
 from tensorflow import keras 
 from keras import models, layers, regularizers
-import matplotlib as plt
 from data_compiler import compile_data
 
 NUM_CLASSES = 100
@@ -10,7 +9,6 @@ NUM_TESTVAL_EXAMPLES_PER_CLASS = 500
 
 X_train, y_train, X_val, y_val, X_test, y_test, classes = compile_data(NUM_CLASSES, NUM_TRAIN_EXAMPLES_PER_CLASS, NUM_TESTVAL_EXAMPLES_PER_CLASS)
 
-print("starting model")
 #model yields 0.7397 train accuracy, 0.7678 val accuracy, 0.8107 test accuracy
 model = models.Sequential()
 model.add(layers.Conv2D(64, (3, 3), activation='relu', input_shape=(28, 28, 1)))
