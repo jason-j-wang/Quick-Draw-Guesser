@@ -4,7 +4,7 @@ from sklearn.utils import shuffle
 
 IMAGE_DIM = 28
 
-directory = os.getcwd() + '\\Quick-Draw-Guesser\\data\\draw_data'
+data_directory = os.getcwd() + '\\Quick-Draw-Guesser\\data\\draw_data'
 
 def compile_data(num_classes, num_train_examples_per_class, num_testval_examples_per_class):
     '''
@@ -21,11 +21,13 @@ def compile_data(num_classes, num_train_examples_per_class, num_testval_examples
     y_test = np.zeros(num_classes * num_testval_examples_per_class)
     classes = []
 
-    for class_enum, file in enumerate(os.listdir(directory)):
-        if class_enum == num_classes - 1:
-            break
+    class_directory = os.getcwd() + '\\Quick-Draw-Guesser\\data\\classes.txt'
+    f = open(class_directory , 'w')
+
+    for class_enum, file in enumerate(os.listdir(data_directory)):
         filename = os.fsdecode(file)
-        path = directory + '\\' + filename
+        f.write(filename[:-4] + '\n')
+        path = data_directory + '\\' + filename
         arr = np.load(path)
 
         # training data
@@ -45,6 +47,8 @@ def compile_data(num_classes, num_train_examples_per_class, num_testval_examples
         for i in range(num_testval_examples_per_class):
             X_test[class_enum * num_testval_examples_per_class + i] = np.reshape(arr[i + offset] / 255, (28, 28))
             y_test[class_enum * num_testval_examples_per_class + i] = class_enum
+
+    f.close()
             
     y_train = y_train.astype(int)
     X_train, y_train = shuffle(X_train, y_train)
